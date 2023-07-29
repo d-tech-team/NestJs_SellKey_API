@@ -9,6 +9,9 @@ import { CategoryRepository } from './categories/category.repository';
 import { I18nModule } from 'nestjs-i18n';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Categories } from './categories/categories.model';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
+import { Users } from './users/users.model';
 const path = require('path');
 
 @Module({
@@ -24,7 +27,7 @@ const path = require('path');
       username: process.env.DATABASE_USER || 'root',
       password: process.env.DATABASE_PASSWORD || '',
       database: process.env.DATABASE_NAME || 'dev',
-      models: [Categories],
+      models: [Categories,Users],
     }),
     I18nModule.forRoot({
       fallbackLanguage: 'en',
@@ -34,6 +37,8 @@ const path = require('path');
       },
     }),
     CategoriesModule,
+    AuthModule,
+    UsersModule,
   ],
   controllers: [AppController, CategoriesController],
   providers: [AppService, CategoriesService],

@@ -3,8 +3,6 @@ import {
   Column,
   Table,
   BeforeCreate,
-  BeforeUpdate,
-  BeforeSave,
 } from 'sequelize-typescript';
 import * as slug from 'slug';
 
@@ -43,9 +41,4 @@ export class Categories extends Model {
     instance.slug = slug(instance.name);
   }
 
-  @BeforeUpdate
-  static beforeUpdateCategory(instance: Categories) {
-    console.log(`Update category with id = ${instance.id} success`);
-    instance.slug = slug(instance.name);
-  }
 }
