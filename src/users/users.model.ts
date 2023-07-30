@@ -1,9 +1,9 @@
-import { Column, Table, Model } from 'sequelize-typescript';
+import { Column, Table, Model, BeforeCreate } from 'sequelize-typescript';
+import * as bcrypt from 'bcrypt';
+const random = require('random-string-generator');
 
 @Table
 export class Users extends Model {
-  @Column
-  fullname: string;
 
   @Column
   email: string;
@@ -11,7 +11,9 @@ export class Users extends Model {
   @Column
   password: string;
 
-  @Column
+  @Column({
+    defaultValue: 0,
+  })
   cash: number;
 
   @Column
@@ -36,4 +38,9 @@ export class Users extends Model {
     defaultValue: Date.now(),
   })
   updatedAt: Date;
+
+  @BeforeCreate
+  static createToken(instance: Users) {
+    instance.token = random(20)
+  }
 }
