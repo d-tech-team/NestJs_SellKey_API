@@ -37,12 +37,13 @@ export class AuthService {
     }
 
     const accessToken = this.jwtService.sign(
-      {username: user.email,},
-      { expiresIn: '30m' },
+      { id: user.id, username: user.email, role: user.role },
+      { expiresIn: '1m', secret: process.env.JWT_SECRECT },
     );
     const refreshToken = this.jwtService.sign(
-      {username: user.username,
-      },{ expiresIn: '7d' },
+      { username: user.username },
+
+      { expiresIn: '7d', secret: process.env.JWT_SECRECT },
     );
 
     return {

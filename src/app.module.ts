@@ -41,6 +41,6 @@ const path = require('path');
     UsersModule,
   ],
   controllers: [AppController, CategoriesController],
-  providers: [AppService, CategoriesService],
+  providers: [AppService, CategoriesService,],
 })
 export class AppModule {}
