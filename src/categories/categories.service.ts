@@ -4,10 +4,8 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import * as slug from 'slug';
-import { I18nContext, I18nService } from 'nestjs-i18n';
 import { Categories } from './categories.model';
 import { InjectModel } from '@nestjs/sequelize';
-import { AppService } from 'src/app.service';
 
 @Injectable()
 export class CategoriesService {
@@ -20,8 +18,8 @@ export class CategoriesService {
       where: {
         isDeleted: 0,
       },
-      order: [['id', 'DESC']],
-    });
+      order: [['createdAt', 'DESC']],
+    }); 
   }
 
   async findOne(id: number): Promise<Categories> {

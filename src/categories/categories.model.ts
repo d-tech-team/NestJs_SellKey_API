@@ -1,18 +1,13 @@
-import {
-  Model,
-  Column,
-  Table,
-  BeforeCreate,
-} from 'sequelize-typescript';
+import { Model, Column, Table, BeforeCreate } from 'sequelize-typescript';
 import * as slug from 'slug';
+import { v4 as uuidv4 } from 'uuid';
 
 @Table
 export class Categories extends Model {
   @Column({
-    autoIncrement: true,
     primaryKey: true,
   })
-  id: number;
+  id: string;
 
   @Column
   name: string;
@@ -36,9 +31,13 @@ export class Categories extends Model {
   updatedAt: Date;
 
   @BeforeCreate
+  static createId(instance: Categories) {
+    instance.id = uuidv4();
+  }
+
+  @BeforeCreate
   static beforeCreateCategory(instance: Categories) {
     console.log(`Create category with id = ${instance.id} success`);
     instance.slug = slug(instance.name);
   }
-
 }
