@@ -14,7 +14,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 @Controller('posts')
 export class PostsController {
   constructor(private readonly postService: PostsService) {}
-
+ 
   @Get()
   findAll() {
     return this.postService.findAll();
@@ -24,10 +24,9 @@ export class PostsController {
     return this.postService.findOne(id);
   }
 
-  @Post()
-  @UseInterceptors(FileInterceptor('thmbnail'))
+  @Post() 
+  @UseInterceptors(FileInterceptor('thumbnail'))
   create(@Body() body: createPost, @UploadedFile() file: Express.Multer.File) {
-    console.log(file);
-    return this.postService.create(body);
+    return this.postService.create(body,file);
   }
 }

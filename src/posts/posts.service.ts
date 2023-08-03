@@ -6,10 +6,13 @@ import {
 import { InjectModel } from '@nestjs/sequelize';
 import { Posts } from './posts.model';
 import * as slug from 'slug';
+import { Sequelize } from 'sequelize-typescript';
 
 @Injectable()
 export class PostsService {
-  constructor(@InjectModel(Posts) private postModel: typeof Posts) {}
+  constructor(@InjectModel(Posts) private postModel: typeof Posts,
+    private sequelize: Sequelize
+  ) { }
 
   findAll(): Promise<Posts[]> {
     return this.postModel.findAll({
@@ -33,19 +36,32 @@ export class PostsService {
     return post;
   }
 
-  async create({ title, ...data }): Promise<Posts> {
+  async create({ title, ...data }, file: Express.Multer.File): Promise<Posts> {
     const newSlug = slug(title);
-    const post = await this.postModel.findOne({
-      where: {
-        slug: newSlug,
-        isDeleted: 0,
-      },
-    });
+    try {
+      await this.sequelize.transaction(async t => {
+        const transactionHost = { transaction: t };
 
-    if (post) {
-      throw new BadRequestException('Danh mục đã tồn tại');
+        const post = await this.postModel.findOne({
+          where: {
+            slug: newSlug,
+            isDeleted: 0,
+          },
+        });
+        if (post) {
+          throw new BadRequestException('Danh mục đã tồn tại');
+        }
+
+        if (!file) {
+          throw new BadRequestException("Thumbnail không được để trống")
+        }
+
+        return post;
+      });
+
+    } catch (error) {
+
     }
 
-    return post;
   }
 }

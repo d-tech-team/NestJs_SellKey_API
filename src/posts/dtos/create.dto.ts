@@ -6,7 +6,5 @@ export class createPost {
   @IsNotEmpty()
   content: string;
   @IsNotEmpty()
-  thumbnail: string;
-  @IsNotEmpty()
   category: string;
 }
