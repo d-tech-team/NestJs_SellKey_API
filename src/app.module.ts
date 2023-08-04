@@ -16,6 +16,7 @@ import { PostsService } from './posts/posts.service';
 import { PostsModule } from './posts/posts.module';
 import { Posts } from './posts/posts.model';
 import { ImagesModule } from './images/images.module';
+import { Images } from './images/images.model';
 const path = require('path');
 
 @Module({
@@ -31,7 +32,7 @@ const path = require('path');
       username: process.env.DATABASE_USER || 'root',
       password: process.env.DATABASE_PASSWORD || '',
       database: process.env.DATABASE_NAME || 'dev',
-      models: [Categories,Users,Posts],
+      models: [Categories,Users,Posts,Images],
     }),
     // I18nModule.forRoot({
     //   fallbackLanguage: 'en',

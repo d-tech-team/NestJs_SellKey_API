@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Param,
+  Patch,
   Post,
   UploadedFile,
   UseInterceptors,
@@ -13,8 +14,8 @@ import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('posts')
 export class PostsController {
-  constructor(private readonly postService: PostsService) {}
- 
+  constructor(private readonly postService: PostsService) { }
+
   @Get()
   findAll() {
     return this.postService.findAll();
@@ -24,9 +25,14 @@ export class PostsController {
     return this.postService.findOne(id);
   }
 
-  @Post() 
-  @UseInterceptors(FileInterceptor('thumbnail'))
-  create(@Body() body: createPost, @UploadedFile() file: Express.Multer.File) {
-    return this.postService.create(body,file);
+  @Post()
+  create(@Body() body) {
+    return this.postService.create(body);
   }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() body) {    
+    return this.postService.update(id, body)
+  }
+
 }

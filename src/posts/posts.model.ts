@@ -7,6 +7,7 @@ import {
 } from 'sequelize-typescript';
 import * as slug from 'slug';
 import { Categories } from 'src/categories/categories.model';
+import { Images } from 'src/images/images.model';
 import { v4 as uuidv4 } from 'uuid';
 
 @Table
@@ -23,14 +24,18 @@ export class Posts extends Model {
   content: string;
 
   @Column
+  // @HasOne(() => Images, {
+  //   foreignKey: 'id',
+  // })
   thumbnail: string;
 
   @Column
   slug: string;
 
-  @HasOne(() => Categories, {
-    foreignKey: 'id',
-  })
+  @Column
+  // @HasOne(() => Categories, {
+  //   foreignKey: 'id',
+  // })
   category: string;
 
   @Column({

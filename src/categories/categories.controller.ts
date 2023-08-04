@@ -21,7 +21,7 @@ export class CategoriesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: number) {
+  findOne(@Param('id') id: string) {
     return this.categoriesService.findOne(id);
   }
 
@@ -31,12 +31,12 @@ export class CategoriesController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: number, @Body() body: CategoriesDTO) {
+  update(@Param('id') id: string, @Body() body: CategoriesDTO) {
     return this.categoriesService.update(id, { name: body.name });
   }
 
   @Delete(':id')
-  delete(@Param('id') id: number) {
+  delete(@Param('id') id: string) {
     return this.categoriesService.delete(id);
   }
 }

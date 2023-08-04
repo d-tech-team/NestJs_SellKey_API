@@ -11,7 +11,7 @@ import { InjectModel } from '@nestjs/sequelize';
 export class CategoriesService {
   constructor(
     @InjectModel(Categories) private categoryModel: typeof Categories,
-  ) {}
+  ) { }
 
   async findAll(): Promise<Categories[]> {
     return this.categoryModel.findAll({
@@ -19,10 +19,10 @@ export class CategoriesService {
         isDeleted: 0,
       },
       order: [['createdAt', 'DESC']],
-    }); 
+    });
   }
 
-  async findOne(id: number): Promise<Categories> {
+  async findOne(id: string): Promise<Categories> {
     const category = await this.categoryModel.findOne({
       where: {
         id,
@@ -50,7 +50,7 @@ export class CategoriesService {
     return this.categoryModel.create({ name });
   }
 
-  async update(id, { name }): Promise<Categories | any> {
+  async update(id: string, { name }): Promise<Categories | any> {
     let category = await this.categoryModel.findOne({
       where: {
         id,
@@ -60,19 +60,8 @@ export class CategoriesService {
     if (!category) {
       throw new NotFoundException('Danh mục không tìm thấy');
     }
-    const newSlug = slug(name);
-    category = await this.categoryModel.findOne({
-      where: {
-        slug: newSlug,
-        isDeleted: 0,
-      },
-    });
-
-    if (category) {
-      throw new BadRequestException('Danh mục đã tồn tại');
-    }
     return this.categoryModel.update(
-      { name, slug: newSlug },
+      { name },
       {
         where: {
           id,
@@ -81,7 +70,7 @@ export class CategoriesService {
     );
   }
 
-  async delete(id: number): Promise<Categories | any> {
+  async delete(id: string): Promise<Categories | any> {
     const category = await this.categoryModel.findOne({
       where: {
         id,
@@ -99,5 +88,5 @@ export class CategoriesService {
         },
       },
     );
-  }
+  } 
 }
