@@ -97,18 +97,23 @@ export class PostsService {
     }
   }
 
-  async update(id: string, { category, thumbnail, ...data } : updatePost): Promise<Posts | any> {
+  async update(id: string, { category, thumbnail, ...data }): Promise<Posts | any> {
 
-    console.log(id);
-    
+    // console.log(id);
+
     const post = await this.findOne(id)
     if (!post) {
       throw new BadRequestException("Bài viết không được tìm thấy")
     }
+    console.log(category);
+
     const cate = await this.categoryService.findOne(category)
     if (!cate) {
       throw new BadRequestException("Danh mục không được tìm thấy")
     }
+
+    console.log(category);
+    
 
     const thumb = await this.imageService.findOne(thumbnail)
     if (!thumb) {
@@ -116,8 +121,11 @@ export class PostsService {
     }
     const { title, content } = data
 
+
     if (thumbnail && thumbnail !== post.thumbnail) {
-      await this.imageService.delete(post.thumbnail)
+      console.log(id);
+
+      // await this.imageService.delete(post.thumbnail)
       return this.postModel.update({
         title, content, thumbnail
       }, {
@@ -126,12 +134,12 @@ export class PostsService {
         }
       })
     }
-    return this.postModel.update({
-      title, content
-    }, {
-      where: {
-        id
-      }
-    })
+    // return this.postModel.update({
+    //   title, content
+    // }, {
+    //   where: {
+    //     id
+    //   }
+    // })
   }
 }

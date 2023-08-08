@@ -11,6 +11,7 @@ import {
 import { PostsService } from './posts.service';
 import { createPost } from './dtos/create.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { updatePost } from './dtos/update.dto';
 
 @Controller('posts')
 export class PostsController {
@@ -31,7 +32,7 @@ export class PostsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() body) {    
+  update(@Param('id') id: string, @Body() body : updatePost) {    
     return this.postService.update(id, body)
   }
 
