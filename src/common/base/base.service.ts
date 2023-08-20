@@ -6,7 +6,7 @@ import { I18nContext } from "nestjs-i18n";
 export class BaseService<T extends Model<T | any>> {
     constructor(
         protected model: ModelCtor<T | any>,
-        private sequelize: Sequelize,
+        protected sequelize: Sequelize,
     ) { }
 
     async findAll(): Promise<T[] | any> {
@@ -52,22 +52,22 @@ export class BaseService<T extends Model<T | any>> {
         }
     }
 
-    async create(data : any): Promise<T | any> {
-        
+    async create(data: any): Promise<T | any> {
+
         try {
-            
+
             const item = await this.sequelize.transaction(async (t) => {
                 const transactionHost = { transaction: t };
-                const item = await this.model.create( data , transactionHost)
+                const item = await this.model.create(data, transactionHost)
                 return item
             })
             return {
                 success: true,
-                data : item
+                data: item
             }
         } catch (error) {
             console.log(error);
-            
+
             throw new HttpException({
                 success: false,
                 data: error.message
@@ -76,7 +76,7 @@ export class BaseService<T extends Model<T | any>> {
     }
 
     async update(id: string, data: any): Promise<T | any> {
-        
+
         try {
             const item = await this.model.findOne({
                 where: {

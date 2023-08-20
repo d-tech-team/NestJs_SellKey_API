@@ -21,6 +21,14 @@ import { ServersModule } from './servers/servers.module';
 import { Servers } from './servers/servers.model';
 import { FeaturesModule } from './features/features.module';
 import { Features } from './features/features.model';
+import { PurchaseHistoriesModule } from './purchase-histories/purchase-histories.module';
+import { RechargeHistoriesModule } from './recharge_histories/recharge_histories.module';
+import { RechargeHistories } from './recharge_histories/recharge_histories.model';
+import { ChangelogsModule } from './changelogs/changelogs.module';
+import { ChangeLogs } from './changelogs/changelogs.model';
+import { SystemModule } from './system/system.module';
+import { System } from './system/system.model';
+import { PurchaseHistories } from './purchase-histories/purchase-histories.model';
 const path = require('path');
 
 @Module({
@@ -36,10 +44,10 @@ const path = require('path');
       username: process.env.DATABASE_USER || 'root',
       password: process.env.DATABASE_PASSWORD || '',
       database: process.env.DATABASE_NAME || 'dev',
-      models: [Categories, Users, Posts, Images, Servers,Features],
+      models: [Categories, Users, Posts, Images, Servers, Features, RechargeHistories, ChangeLogs, System,PurchaseHistories],
     }),
     I18nModule.forRoot({
-      fallbackLanguage: 'en', 
+      fallbackLanguage: 'en',
       loaderOptions: {
         path: path.join(__dirname, '/apps/api/i18n/'),
         watch: true,
@@ -55,6 +63,10 @@ const path = require('path');
     ImagesModule,
     ServersModule,
     FeaturesModule,
+    PurchaseHistoriesModule,
+    RechargeHistoriesModule,
+    ChangelogsModule,
+    SystemModule,
   ],
   controllers: [AppController, CategoriesController, PostsController],
   providers: [AppService, CategoriesService, PostsService,],

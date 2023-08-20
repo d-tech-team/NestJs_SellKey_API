@@ -7,6 +7,7 @@ export class BaseModel extends Model {
         primaryKey: true,
     })
     id: string;
+
     @Column({
         defaultValue: 0,
     })
