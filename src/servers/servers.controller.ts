@@ -29,6 +29,6 @@ export class ServersController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.serversService.remove(+id);
+    return this.serversService.delete(id);
   }
 }

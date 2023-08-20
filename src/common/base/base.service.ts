@@ -52,18 +52,22 @@ export class BaseService<T extends Model<T | any>> {
         }
     }
 
-    async create(data: any): Promise<T | any> {
+    async create(data : any): Promise<T | any> {
+        
         try {
-            const data = await this.sequelize.transaction(async (t) => {
+            
+            const item = await this.sequelize.transaction(async (t) => {
                 const transactionHost = { transaction: t };
-                const item = await this.model.create({ data }, transactionHost)
+                const item = await this.model.create( data , transactionHost)
                 return item
             })
             return {
                 success: true,
-                data
+                data : item
             }
         } catch (error) {
+            console.log(error);
+            
             throw new HttpException({
                 success: false,
                 data: error.message
@@ -72,6 +76,7 @@ export class BaseService<T extends Model<T | any>> {
     }
 
     async update(id: string, data: any): Promise<T | any> {
+        
         try {
             const item = await this.model.findOne({
                 where: {

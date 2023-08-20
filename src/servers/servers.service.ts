@@ -13,8 +13,4 @@ export class ServersService extends BaseService<Servers> {
   ) {
     super(serverModel, sequelize);
   }
-
-  remove(id: number) {
-    return `This action removes a #${id} server`;
-  }
 }

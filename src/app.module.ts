@@ -19,6 +19,8 @@ import { ImagesModule } from './images/images.module';
 import { Images } from './images/images.model';
 import { ServersModule } from './servers/servers.module';
 import { Servers } from './servers/servers.model';
+import { FeaturesModule } from './features/features.module';
+import { Features } from './features/features.model';
 const path = require('path');
 
 @Module({
@@ -34,10 +36,10 @@ const path = require('path');
       username: process.env.DATABASE_USER || 'root',
       password: process.env.DATABASE_PASSWORD || '',
       database: process.env.DATABASE_NAME || 'dev',
-      models: [Categories, Users, Posts, Images, Servers],
+      models: [Categories, Users, Posts, Images, Servers,Features],
     }),
     I18nModule.forRoot({
-      fallbackLanguage: 'en',
+      fallbackLanguage: 'en', 
       loaderOptions: {
         path: path.join(__dirname, '/apps/api/i18n/'),
         watch: true,
@@ -52,6 +54,7 @@ const path = require('path');
     PostsModule,
     ImagesModule,
     ServersModule,
+    FeaturesModule,
   ],
   controllers: [AppController, CategoriesController, PostsController],
   providers: [AppService, CategoriesService, PostsService,],

@@ -6,8 +6,6 @@ import {
   Model,
 } from 'sequelize-typescript';
 import * as slug from 'slug';
-import { Categories } from 'src/categories/categories.model';
-import { Images } from 'src/images/images.model';
 import { v4 as uuidv4 } from 'uuid';
 
 @Table
