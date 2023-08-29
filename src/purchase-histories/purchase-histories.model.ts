@@ -1,7 +1,9 @@
-import { Column } from "sequelize-typescript";
+import { Column, Table } from "sequelize-typescript";
 import { BaseModel } from "src/common/base/base.model";
 
-
+@Table({
+    tableName: 'purchase_histories'
+})
 export class PurchaseHistories extends BaseModel {
    
     @Column

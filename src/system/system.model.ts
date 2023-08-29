@@ -7,11 +7,6 @@ import { v4 as uuidv4 } from 'uuid';
 })
 export class System extends BaseModel {
 
-    @Column({
-        primaryKey: true,
-    })
-    id: string;
-
     @Column
     apiAccessToken: string
 
@@ -22,20 +17,8 @@ export class System extends BaseModel {
     facebookPluginChatScript: string
 
     @Column
+    discountForAgency: number
+
+    @Column
     notication: string
-
-    @Column({
-        defaultValue: Date.now(),
-    })
-    createdAt: Date;
-
-    @Column({
-        defaultValue: Date.now(),
-    })
-    updatedAt: Date;
-
-    @BeforeCreate
-    static createId(instance: BaseModel) {
-        instance.id = uuidv4();
-    }
 }

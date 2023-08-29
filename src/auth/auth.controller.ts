@@ -9,7 +9,7 @@ import {
 import { SignupDTO } from './dtos/signup.dto';
 import { AuthService } from './auth.service';
 import { SigninDTO } from './dtos/signin.dto';
-import { AuthGuard } from './guard/auth.guard';
+
 
 @Controller('auth')
 export class AuthController {
@@ -25,7 +25,6 @@ export class AuthController {
     return this.authService.signin(body.email, body.password);
   }
 
-  @UseGuards(AuthGuard)
   @Get('profile')
   getProfile(@Request() req) {
     return req.user;

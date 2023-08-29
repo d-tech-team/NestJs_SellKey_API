@@ -17,6 +17,6 @@ export class Features extends BaseModel {
     notice: string
 
     @Column
-    noti_enable: boolean
+    noti_enabled: boolean
 
 }

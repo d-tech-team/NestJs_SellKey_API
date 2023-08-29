@@ -29,13 +29,15 @@ import { ChangeLogs } from './changelogs/changelogs.model';
 import { SystemModule } from './system/system.module';
 import { System } from './system/system.model';
 import { PurchaseHistories } from './purchase-histories/purchase-histories.model';
+import { DiscountModule } from './discount/discount.module';
+import { Discount } from './discount/discount.model';
 const path = require('path');
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: '.development.env',
-      isGlobal: true,
+      isGlobal: true, 
     }),
     SequelizeModule.forRoot({
       dialect: 'mysql',
@@ -44,7 +46,7 @@ const path = require('path');
       username: process.env.DATABASE_USER || 'root',
       password: process.env.DATABASE_PASSWORD || '',
       database: process.env.DATABASE_NAME || 'dev',
-      models: [Categories, Users, Posts, Images, Servers, Features, RechargeHistories, ChangeLogs, System,PurchaseHistories],
+      models: [Categories, Users, Posts, Images, Servers, Features, RechargeHistories, ChangeLogs, System,PurchaseHistories,Discount],
     }),
     I18nModule.forRoot({
       fallbackLanguage: 'en',
@@ -67,8 +69,9 @@ const path = require('path');
     RechargeHistoriesModule,
     ChangelogsModule,
     SystemModule,
+    DiscountModule,
   ],
   controllers: [AppController, CategoriesController, PostsController],
-  providers: [AppService, CategoriesService, PostsService,],
+  providers: [AppService, CategoriesService, PostsService],
 })
 export class AppModule { }
