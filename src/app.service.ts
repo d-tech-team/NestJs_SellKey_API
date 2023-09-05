@@ -5,5 +5,5 @@ import { Model } from 'sequelize-typescript';
 
 @Injectable()
 export class AppService {
-    
+     
 }
